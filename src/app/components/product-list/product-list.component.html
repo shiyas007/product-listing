@@ -1,0 +1,229 @@
+<div class="container-fluid fixed-top">
+    <div class="container px-0">
+        <nav class="navbar navbar-light bg-white navbar-expand-xl">
+            <a href="/" class="navbar-brand">
+                <h1 class="text-primary display-6">Shoppers Stop</h1>
+            </a>
+            <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars text-primary"></span>
+            </button>
+            <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+                <div class="navbar-nav mx-auto">
+                    <a routerLink="/" class="nav-item nav-link active">Home</a>
+                    <a routerLink="/shop" class="nav-item nav-link">Shop</a>
+                    <a routerLink="/shop-detail" class="nav-item nav-link">Shop Detail</a>
+                </div>
+
+                <!-- Search Input with Auto-Suggestions -->
+                <div class="search-container position-relative">
+                    <input type="text" class="form-control" [(ngModel)]="searchQuery" (input)="onSearch()"
+                        placeholder="Search products..." />
+                    <!-- Auto-Suggestion Dropdown -->
+                    <ul *ngIf="filteredProducts.length" class="suggestions-list">
+                        <li *ngFor="let product of filteredProducts" (click)="selectProduct(product.name)">
+                            {{ product.name }}
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="d-flex m-3 me-0">
+                    <a href="#" class="position-relative me-4 my-auto">
+                        <i class="fa fa-shopping-bag fa-2x"></i>
+                    </a>
+                    <a href="#" class="my-auto">
+                        <i class="fas fa-user fa-2x"></i>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<div class="container-fluid py-5 mb-5 hero-header">
+    <div class="container py-5">
+        <div class="row g-5 align-items-center">
+            <div class="col-md-12 col-lg-7">
+                <h4 class="mb-3 text-secondary">Premium Quality Sneakers</h4>
+                <h1 class="mb-5 display-3">Stylish & Comfortable Sneakers</h1>
+            </div>
+            <div class="col-md-12 col-lg-5">
+                <div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">
+                    <div class="carousel-inner" role="listbox">
+                        <div class="carousel-item active rounded">
+                            <img src="assets/img/hero-1.jpg" class="img-fluid w-100 h-100 bg-secondary rounded"
+                                alt="First slide">
+                            <!-- <a href="#" class="btn px-4 py-2 text-white rounded">Fruites</a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid featurs py-5">
+    <div class="container py-5">
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="featurs-item text-center rounded bg-light p-4">
+                    <div class="featurs-icon btn-square rounded-circle bg-secondary mb-5 mx-auto">
+                        <i class="fas fa-car-side feature_icons fa-3x text-white"></i>
+                    </div>
+                    <div class="featurs-content text-center">
+                        <h5>Free Shipping</h5>
+                        <p class="mb-0">Free on order over $300</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="featurs-item text-center rounded bg-light p-4">
+                    <div class="featurs-icon btn-square rounded-circle bg-secondary mb-5 mx-auto">
+                        <i class="fas fa-user-shield feature_icons fa-3x text-white"></i>
+                    </div>
+                    <div class="featurs-content text-center">
+                        <h5>Security Payment</h5>
+                        <p class="mb-0">100% security payment</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="featurs-item text-center rounded bg-light p-4">
+                    <div class="featurs-icon btn-square rounded-circle bg-secondary mb-5 mx-auto">
+                        <i class="fas fa-exchange-alt feature_icons fa-3x text-white"></i>
+                    </div>
+                    <div class="featurs-content text-center">
+                        <h5>30 Day Return</h5>
+                        <p class="mb-0">30 day money guarantee</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="featurs-item text-center rounded bg-light p-4">
+                    <div class="featurs-icon btn-square rounded-circle bg-secondary mb-5 mx-auto">
+                        <i class="fa fa-phone-alt feature_icons fa-3x text-white"></i>
+                    </div>
+                    <div class="featurs-content text-center">
+                        <h5>24/7 Support</h5>
+                        <p class="mb-0">Support every time fast</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid fruite py-5">
+    <div class="container py-5">
+      <div class="tab-class text-center">
+        <div class="">
+          <div class="tab-pane fade show p-0 active">
+            <div class="row g-4">
+              <div class="col-lg-12">
+                <div class="row g-4">
+                  <div *ngFor="let product of paginatedProducts" 
+                       class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="rounded position-relative fruite-item border border-secondary">
+                      <div class="fruite-img">
+                        <img [src]="product.image" class="img-fluid w-100 rounded-top" alt="{{ product.name }}">
+                      </div>
+                      <div class="text-white px-3 py-1 rounded position-absolute" 
+                           style="top: 10px; left: 10px;background-color: #00ad33;">
+                        {{ product.category }}
+                      </div>
+                      <div class="p-4">
+                        <h4>{{ product.name }}</h4>
+                        <p>{{ product.description }}</p>
+                        <div class="d-flex justify-content-between flex-lg-wrap">
+                          <p class="text-dark fs-5 fw-bold mb-0">${{ product.price }}</p>
+                          <a href="#" class="btn mt-1 w-100 add_to_cart_btn border border-secondary rounded-pill px-3 text-primary">
+                            <i class="fa fa-shopping-bag me-2"></i> Add to cart
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> 
+              </div> 
+            </div> 
+          </div> 
+        </div> 
+      </div>
+  
+      <!-- Pagination Controls -->
+      <div class="d-flex justify-content-center mt-4">
+        <button (click)="prevPage()" [disabled]="currentPage === 1" class="btn btn-secondary mx-2">Previous</button>
+        <span class="align-self-center">Page {{ currentPage }} of {{ totalPages }}</span>
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages" class="btn btn-secondary mx-2">Next</button>
+      </div>
+    </div>
+  </div>  
+
+ <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
+    <div class="container py-5">
+        <div class="pb-4 mb-4" style="border-bottom: 1px solid rgba(226, 175, 24, 0.5) ;">
+            <div class="row g-4">
+                <div class="col-lg-3">
+                    <a href="#">
+                        <h1 class="text-primary mb-0">Shppers Stop</h1>
+                    </a>
+                </div>
+                <div class="col-lg-6">
+                    <div class="position-relative mx-auto">
+                        <input class="form-control border-0 w-100 py-3 px-4 rounded-pill" type="number" placeholder="Your Email">
+                        <button type="submit" class="btn btn-primary border-0 border-secondary py-3 px-4 position-absolute rounded-pill text-white" style="top: 0; right: 0;">Subscribe Now</button>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="d-flex justify-content-end pt-3">
+                        <a class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-youtube"></i></a>
+                        <a class="btn btn-outline-secondary btn-md-square rounded-circle" href=""><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row g-5">
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-item">
+                    <h4 class="text-light mb-3">Why People Like us!</h4>
+                    <p class="mb-4">hi there theres lot more</p>
+                    <a href="" class="btn border-secondary py-2 px-4 rounded-pill text-primary">Read More</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="d-flex flex-column text-start footer-item">
+                    <h4 class="text-light mb-3">Shop Info</h4>
+                    <a class="btn-link" href="">About Us</a>
+                    <a class="btn-link" href="">Contact Us</a>
+                    <a class="btn-link" href="">Privacy Policy</a>
+                    <a class="btn-link" href="">Terms & Condition</a>
+                    <a class="btn-link" href="">Return Policy</a>
+                    <a class="btn-link" href="">FAQs & Help</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="d-flex flex-column text-start footer-item">
+                    <h4 class="text-light mb-3">Account</h4>
+                    <a class="btn-link" href="">My Account</a>
+                    <a class="btn-link" href="">Shop details</a>
+                    <a class="btn-link" href="">Shopping Cart</a>
+                    <a class="btn-link" href="">Wishlist</a>
+                    <a class="btn-link" href="">Order History</a>
+                    <a class="btn-link" href="">International Orders</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-item">
+                    <h4 class="text-light mb-3">Contact</h4>
+                    <p>Address: 1429 Netus Rd, NY 48247</p>
+                    <p>Email: Examplemail.com</p>
+                    <p>Phone: +0123 4567 8910</p>
+                    <p>Payment Accepted</p>
+                    <img src="img/payment.png" class="img-fluid" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
